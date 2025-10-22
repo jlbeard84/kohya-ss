@@ -2,9 +2,11 @@ ARG KOHYA_VERSION=v25.2.1
 
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    python3.11 python3.11-venv python3-pip python3-tk git curl wget ffmpeg \
-    libgl1 libsm6 libxext6 libgoogle-perftools4 build-essential \
+RUN apt-get update && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        python3.11 python3.11-venv python3.11-distutils python3-pip python3-tk git curl wget ffmpeg \
+        libgl1 libsm6 libxext6 libgoogle-perftools4 build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
