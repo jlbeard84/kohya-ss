@@ -1,3 +1,5 @@
+ARG KOHYA_VERSION=v25.2.1
+
 FROM nvidia/cuda:12.8.1-cudnn8-devel-ubuntu24.04
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -7,7 +9,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 WORKDIR /app
 
 RUN git clone https://github.com/bmaltais/kohya_ss.git \
-    --branch v25.2.1 \
+    --branch ${KOHYA_VERSION} \
     --single-branch kohya_ss
 
 RUN python3.11 -m venv /app/kohya_ss/venv \
