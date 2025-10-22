@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3.11 python3.11-venv python3-pip python3-tk git curl wget ffmpeg \
-    libgl1 libsm6 libxext6 libtcmalloc-minimal4 build-essential \
+    libgl1 libsm6 libxext6 libgoogle-perftools4 build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -20,7 +20,8 @@ RUN python3.11 -m venv /app/kohya_ss/venv \
     && /app/kohya_ss/venv/bin/pip install -r /app/kohya_ss/requirements.txt
 
 ENV PATH="/app/kohya_ss/venv/bin:$PATH"
-ENV LD_PRELOAD=libtcmalloc.so.4
+ENV LD_PRELOAD=libtcmalloc.so
+
 
 EXPOSE 7860
 EXPOSE 6006
