@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y software-properties-common \
 
 WORKDIR /app
 
-RUN git clone https://github.com/bmaltais/kohya_ss.git --branch v25.2.1 --single-branch kohya_ss
+RUN git clone https://github.com/bmaltais/kohya_ss.git --recursive --branch v25.2.1 --single-branch kohya_ss
 
 RUN python3.11 -m venv /app/kohya_ss/venv \
     && /app/kohya_ss/venv/bin/pip install --upgrade pip setuptools wheel \
@@ -33,9 +33,9 @@ RUN apt-get remove -y build-essential software-properties-common \
     && rm -rf /root/.cache
 
 ENV PATH="/app/kohya_ss/venv/bin:$PATH"
-ENV LD_PRELOAD=libtcmalloc.so
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc.so
 
 EXPOSE 7860
 EXPOSE 6006
 
-CMD ["python3", "/app/kohya_ss/gui.py", "--listen", "0.0.0.0", "--port", "7860"]
+CMD ["python3", "/app/kohya_ss/kohya_gui.py", "--listen", "0.0.0.0", "--port", "7860"]
