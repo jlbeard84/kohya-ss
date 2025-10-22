@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y software-properties-common \
 
 WORKDIR /app
 
-RUN git clone https://github.com/bmaltais/kohya_ss.git \
-    --branch ${KOHYA_VERSION} \
-    --single-branch kohya_ss
+RUN git clone --branch ${KOHYA_VERSION} \
+    --single-branch https://github.com/bmaltais/kohya_ss.git \
+    kohya_ss
 
 RUN python3.11 -m venv /app/kohya_ss/venv \
     && /app/kohya_ss/venv/bin/pip install --upgrade pip setuptools wheel \
